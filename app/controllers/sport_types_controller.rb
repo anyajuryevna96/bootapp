@@ -1,5 +1,5 @@
 class SportTypesController < ApplicationController
-  before_action :set_sport_type, only: %i[ show ]
+  before_action :set_sport_type, only: %i[ show edit update destroy]
 
   def index
     @sport_types = SportType.all
@@ -20,6 +20,22 @@ class SportTypesController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
+  def edit
+    @sport_types = SportType.all
+  end
+
+  def update
+    if @sport_type.update(sport_type_params)
+      redirect_to @sport_type
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+  def destroy
+  @sport_type.destroy
+  redirect_to sport_types_path
+end
 
   private
   def sport_type_params

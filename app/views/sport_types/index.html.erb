@@ -4,6 +4,8 @@
     <% @sport_types.each do |sport_type| %>
     <li>
      <h2><%= sport_type.name %><h2>
+     <%= link_to "Edit", edit_sport_type_path(sport_type) %>
+     <%= button_to "Delete", sport_type, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
     </li>
     <% end %>
 </ul>
