@@ -1,0 +1,11 @@
+<h1>Daily Activity <%= @daily_activity.id %></h1>
+<p>
+  <h2><%= @daily_activity.id %><h2>
+  <h2><%= @daily_activity.sporty_type.name %><h2>
+  <h2><%= @daily_activity.duration %><h2>
+  <h2><%= @daily_activity.set %><h2>
+    
+   <%= link_to "Back", daily_activities_path %>
+   <%= link_to "Edit", edit_daily_activity_path(@daily_activity) %>
+   <%= button_to "Delete", @daily_activity, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+</p>

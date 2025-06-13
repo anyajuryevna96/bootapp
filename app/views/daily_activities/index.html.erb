@@ -1,0 +1,14 @@
+<h1>DailyActivities#index</h1>
+<%= link_to "New Activity", new_daily_activity_path %>
+<ul>
+<% @daily_activities.each do |activity| %>
+     <li>
+     <h2><%= activity.id %><h2>
+     <h2><%= activity.sporty_type.name %><h2>
+     <h2><%= activity.duration %><h2>
+     <h2><%= activity.set %><h2>
+     <%= link_to "Edit", edit_daily_activity_path(activity) %>
+     <%= button_to "Delete", activity, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+         </li>
+<% end %>
+</ul>
