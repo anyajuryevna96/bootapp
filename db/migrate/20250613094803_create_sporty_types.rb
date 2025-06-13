@@ -1,6 +1,6 @@
-class CreateSportyTypes < ActiveRecord::Migration[8.0]
+class CreateSportTypes < ActiveRecord::Migration[8.0]
   def change
-    create_table :sporty_types do |t|
+    create_table :sport_types do |t|
       t.string :name
 
       t.timestamps

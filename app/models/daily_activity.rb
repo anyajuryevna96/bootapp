@@ -1,3 +1,3 @@
 class DailyActivity < ApplicationRecord
-  belongs_to :sporty_type
+  belongs_to :sport_type
 end

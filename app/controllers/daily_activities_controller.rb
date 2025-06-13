@@ -8,7 +8,7 @@ class DailyActivitiesController < ApplicationController
   end
 
   def new
-    @sporty_types = SportyType.all
+    @sport_types = SportType.all
     @daily_activity = DailyActivity.new
   end
 
@@ -22,7 +22,7 @@ class DailyActivitiesController < ApplicationController
   end
 
   def edit
-    @sporty_types = SportyType.all
+    @sport_types = SportType.all
   end
 
   def update
@@ -40,7 +40,7 @@ class DailyActivitiesController < ApplicationController
 
   private
   def daily_activity_params
-    params.expect(daily_activity: [ :set, :duration, :sporty_type_id ])
+    params.expect(daily_activity: [ :set, :duration, :sport_type_id ])
   end
 
   def set_daily_activity

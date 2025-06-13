@@ -1,32 +1,32 @@
-class SportyTypesController < ApplicationController
-  before_action :set_sporty_type, only: %i[ show ]
+class SportTypesController < ApplicationController
+  before_action :set_sport_type, only: %i[ show ]
 
   def index
-    @sporty_types = SportyType.all
+    @sport_types = SportType.all
   end
 
   def show
   end
 
   def new
-    @sporty_type = SportyType.new
+    @sport_type = SportType.new
   end
 
   def create
-    @sporty_type = SportyType.new(sporty_type_params)
-    if @sporty_type.save
-      redirect_to @sporty_type
+    @sport_type = SportType.new(sport_type_params)
+    if @sport_type.save
+      redirect_to @sport_type
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   private
-  def sporty_type_params
-    params.expect(sporty_type: [ :name ])
+  def sport_type_params
+    params.expect(sport_type: [ :name ])
   end
 
-  def set_sporty_type
-    @sporty_type = SportyType.find(params[:id])
+  def set_sport_type
+    @sport_type = SportType.find(params[:id])
   end
 end

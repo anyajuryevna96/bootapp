@@ -4,7 +4,7 @@
 <% @daily_activities.each do |activity| %>
      <li>
      <h2><%= activity.id %><h2>
-     <h2><%= activity.sporty_type.name %><h2>
+     <h2><%= activity.sport_type.name %><h2>
      <h2><%= activity.duration %><h2>
      <h2><%= activity.set %><h2>
      <%= link_to "Edit", edit_daily_activity_path(activity) %>

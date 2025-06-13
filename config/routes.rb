@@ -12,5 +12,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "daily_activities#index"
   resources :daily_activities
-  resources :sporty_types
+  resources :sport_types
 end
