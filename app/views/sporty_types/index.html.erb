@@ -1,3 +1,8 @@
 <h1>Sport Activity List</h1>
-<h2><%= @sporty_types_name %><h2>
-  
+<ul>
+    <% @sporty_types.each do |sporty_type| %>
+    <li>
+     <h2><%= sporty_type.name %><h2>
+    </li>
+    <% end %>
+</ul>
