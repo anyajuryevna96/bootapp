@@ -1,9 +1,11 @@
 <h1> Activity Totals by Type </h1>
-<table>
+ <div class="card" style="width: 18rem;">
+<table class="table">
+  <thead>
   <tr>
-    <th>Type</th>
-    <th>Total Duration</th>
-     <th>Total Sets</th>
+      <th scope="col">Type</th>
+      <th scope="col">Duration</th>
+      <th scope="col">Sets</th>
      </tr>
      </thead>
      <tbody>
@@ -15,5 +17,7 @@
         <td><%= activities.sum(&:set) %></td>
       </tr>
     <% end %>
+     </div>
+  
   </tbody>
 </table>
