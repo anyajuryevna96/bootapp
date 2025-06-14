@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   root "daily_activities#index"
   resources :daily_activities
   resources :sport_types
+  resource :overview, only: [ :show ]
 end
