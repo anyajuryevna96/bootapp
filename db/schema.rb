@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_13_150034) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_14_122903) do
   create_table "daily_activities", force: :cascade do |t|
     t.integer "sport_type_id", null: false
     t.integer "duration", default: 0
@@ -24,6 +24,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_13_150034) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "default_duration", default: 60
   end
 
   add_foreign_key "daily_activities", "sport_types"

@@ -39,7 +39,7 @@ end
 
   private
   def sport_type_params
-    params.expect(sport_type: [ :name ])
+    params.expect(sport_type: [ :name, :default_duration  ])
   end
 
   def set_sport_type

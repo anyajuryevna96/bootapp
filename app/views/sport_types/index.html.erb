@@ -1,8 +1,8 @@
 <h1>Sport Type List</h1>
 <%= link_to "New Type", new_sport_type_path %>
-<ul>
+<ul class="list-group">
     <% @sport_types.each do |sport_type| %>
-    <li>
+    <li class="list-group-item">
      <h2><%= sport_type.name %><h2>
      <%= link_to "Edit", edit_sport_type_path(sport_type) %>
      <%= button_to "Delete", sport_type, method: :delete, data: { turbo_confirm: "Are you sure?" } %>

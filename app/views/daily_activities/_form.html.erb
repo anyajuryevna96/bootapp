@@ -1,17 +1,19 @@
-<%= form_with model: @daily_activity do |form| %>
+<%= form_with model: @daily_activity, html:{data: {controller:"daily-activity-form"}} do |form| %>
   <div class="mb-3">
+    <div>
+        <%= form.label :sport_type_id, "Sport", class:"form-label" %>
+        <%= form.collection_select :sport_type_id, @sport_types, :id, :name, {prompt: "Select a sport"}, data: { action: "change->daily-activity-form#update" } %>
+        <%= button_tag 'update', formmethod: "get", formaction: new_daily_activity_path, data:{daily_activity_form_target: "button"}, hidden: true %>
+    </div>
+   
     <%= form.label :Duration,class:"form-label" %>
     <%= form.number_field :duration, class: "form-control" %>
 
     <%= form.label :Set, class:"form-label" %>
     <%= form.number_field :set, class: "form-control" %>
 
-    <div>
-        <%= form.label :sport_type_id, "Sport", class:"form-label" %>
-        <%= form.collection_select :sport_type_id, @sport_types, :id, :name, prompt: "Select a sport" %>
-    </div>
-
   <div>
     <%= form.submit class: "btn btn-info" %>
+  </div>
   </div>
 <% end %>

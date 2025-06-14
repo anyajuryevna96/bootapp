@@ -9,7 +9,15 @@ class DailyActivitiesController < ApplicationController
 
   def new
     @sport_types = SportType.all
-    @daily_activity = DailyActivity.new
+    if params[:daily_activity]
+      @daily_activity = DailyActivity.new(daily_activity_params)
+      if @daily_activity.sport_type
+        @daily_activity.duration = @daily_activity.sport_type.default_duration
+
+      end
+    else
+      @daily_activity = DailyActivity.new
+    end
   end
 
   def create

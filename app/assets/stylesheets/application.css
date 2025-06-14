@@ -9,19 +9,88 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
- ul {
-   list-style-type: none;
-   padding-left: 0;
- }
+/* Reset basic list styling */
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
 
- li {
-   margin-bottom: 15px;
-   padding: 10px;
-   background-color: #f9f9f9;
-   border-radius: 6px;
-   box-shadow: 0 0 5px rgba(0,0,0,0.1);
- }
+/* List items styling */
+li {
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
- strong {
-   color: #333;
- }
+/* Heading or text elements */
+strong,
+h1, h2, h3 {
+  color: #333;
+  margin: 0;
+}
+
+/* Body layout */
+body {
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #212529;
+}
+
+/* Card-style component */
+.stat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.card.stat-card:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-5px);
+}
+
+/* Progress bar styling */
+.progress {
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Badge/indicator style */
+.trend-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background-color: #17a2b8;
+  color: white;
+}
+
+/* Icon styling */
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background-color: #f1f3f5;
+}
+
+/* Hide dropdown arrow */
+.dropdown-toggle::after {
+  display: none;
+}

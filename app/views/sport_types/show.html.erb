@@ -1,7 +1,9 @@
 <h1>Sport Type <%= @sport_type.id %></h1>
+
 <p>
   <h2><%= @sport_type.id %><h2>
   <h2><%= @sport_type.name %><h2>
+   <h2>   <%= @sport_type.default_duration %> </h2>
 
     
    <%= link_to "Back", sport_types_path %>
