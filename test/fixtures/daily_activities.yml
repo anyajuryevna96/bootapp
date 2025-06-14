@@ -1,12 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  sport_type: one
+sigulda:
+  sport_type: walking
   duration: 60
   set: 3
 
-two:
-  sport_type: two 
+round:
+  sport_type: hockey
   duration: 90
   set: 3
 
