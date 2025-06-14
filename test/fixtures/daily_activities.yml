@@ -2,6 +2,11 @@
 
 one:
   sport_type: one
+  duration: 60
+  set: 3
 
 two:
-  sport_type: two
+  sport_type: two 
+  duration: 90
+  set: 3
+

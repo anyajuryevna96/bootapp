@@ -2,17 +2,19 @@ require "test_helper"
 
 class DailyActivitiesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get daily_activities_index_url
+    get daily_activities_path
     assert_response :success
   end
 
   test "should get show" do
-    get daily_activities_show_url
+    d = fixture(:daily_activities, :one)
+    get daily_activity_path(d)
     assert_response :success
   end
 
   test "should get destroy" do
-    get daily_activities_destroy_url
-    assert_response :success
+    d = fixture(:daily_activities, :one)
+    delete daily_activity_path(d)
+    assert_redirected_to daily_activities_path
   end
 end

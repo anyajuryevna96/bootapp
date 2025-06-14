@@ -1,17 +1,17 @@
 <%= form_with model: @daily_activity do |form| %>
-  <div>
-    <%= form.label :Duration %>
-    <%= form.number_field :duration %>
+  <div class="mb-3">
+    <%= form.label :Duration,class:"form-label" %>
+    <%= form.number_field :duration, class: "form-control" %>
 
-    <%= form.label :Set %>
-    <%= form.number_field :set %>
+    <%= form.label :Set, class:"form-label" %>
+    <%= form.number_field :set, class: "form-control" %>
 
     <div>
-        <%= form.label :sport_type_id, "Sport" %>
+        <%= form.label :sport_type_id, "Sport", class:"form-label" %>
         <%= form.collection_select :sport_type_id, @sport_types, :id, :name, prompt: "Select a sport" %>
     </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-info" %>
   </div>
 <% end %>
