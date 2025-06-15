@@ -3,7 +3,7 @@
 <div id="calendar"></div>
 
 <!-- FullCalendar CSS -->
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
 
 <!-- FullCalendar JS -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
@@ -11,19 +11,24 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const calendarEl = document.getElementById("calendar");
+    if (!calendarEl) return;
 
-    if (calendarEl) {
-      const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        events: [
-          {
-            title: 'Test Event',
-            start: '2025-06-25'
-          }
-        ]
-      });
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: "dayGridMonth",
+      height: "auto",
+      events: [
+        <% @activities.each do |activity| %>
+          <% if activity.date.present? %>
+            {
+              title: "<%= j(activity.sport_type.name) %> - <%= activity.duration %> min",
+              start: "<%= activity.date.strftime('%Y-%m-%d') %>",
+              url: "<%= daily_activity_path(activity) %>"
+            },
+          <% end %>
+        <% end %>
+      ]
+    });
 
-      calendar.render();
-    }
+    calendar.render();
   });
 </script>
