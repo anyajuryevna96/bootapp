@@ -1,14 +1,37 @@
-<h1>DailyActivities#index</h1>
-<%= link_to "New Activity", new_daily_activity_path %>
-<ul>
-<% @daily_activities.each do |activity| %>
-     <li>
-     <h2><%= activity.id %><h2>
-     <h2><%= activity.sport_type.name %><h2>
-     <h2><%= activity.duration %><h2>
-     <h2><%= activity.set %><h2>
-     <%= link_to "Edit", edit_daily_activity_path(activity) %>
-     <%= button_to "Delete", activity, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
-         </li>
-<% end %>
-</ul>
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="m-0">Training Diary</h1>
+    <%= link_to "New Activity", new_daily_activity_path, class: "btn btn-primary" %>
+  </div>
+
+  <% if @daily_activities.any? %>
+    <div class="row">
+      <% @daily_activities.each do |activity| %>
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">
+                Activity ID: <%= activity.id %>
+              </h5>
+              <p class="card-text">
+                <span class="me-3">🏃 <strong>Date:</strong> <%= activity.date %></span>
+                <span class="me-3">🏃 <strong>Sport:</strong> <%= activity.sport_type.name %></span>
+                <span class="me-3">⏱️ <strong>Duration:</strong> <%= activity.duration %> min</span>
+                <span>🎯 <strong>Set:</strong> <%= activity.set %></span>
+                <span class="me-3">⏱️ <strong>Distance:</strong> <%= activity.distance %> min</span>
+                <span class="me-3">⏱️ <strong>Calories:</strong> <%= activity.calories %> min</span>
+                <span class="me-3">⏱️ <strong>Description:</strong> <%= activity.details %> min</span>
+              </p>
+              <div class="d-flex gap-2">
+                <%= link_to "Edit", edit_daily_activity_path(activity), class: "btn btn-sm btn-outline-primary" %>
+                <%= button_to "Delete", activity, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted">No activities recorded yet.</p>
+  <% end %>
+</div>

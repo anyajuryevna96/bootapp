@@ -1,0 +1,151 @@
+.
+├── Dockerfile
+├── Gemfile
+├── Gemfile.lock
+├── Procfile.dev
+├── README.md
+├── Rakefile
+├── app
+│   ├── assets
+│   │   ├── builds
+│   │   ├── images
+│   │   └── stylesheets
+│   ├── controllers
+│   │   ├── application_controller.rb
+│   │   ├── concerns
+│   │   ├── daily_activities_controller.rb
+│   │   ├── day_statistic_controller.rb
+│   │   ├── overviews_controller.rb
+│   │   └── sport_types_controller.rb
+│   ├── helpers
+│   │   ├── application_helper.rb
+│   │   ├── daily_activities_helper.rb
+│   │   ├── day_statistic_helper.rb
+│   │   ├── overview_helper.rb
+│   │   └── sport_helper.rb
+│   ├── javascript
+│   │   ├── application.js
+│   │   └── controllers
+│   ├── jobs
+│   │   └── application_job.rb
+│   ├── mailers
+│   │   └── application_mailer.rb
+│   ├── models
+│   │   ├── application_record.rb
+│   │   ├── concerns
+│   │   ├── daily_activity.rb
+│   │   └── sport_type.rb
+│   └── views
+│       ├── daily_activities
+│       ├── day_statistic
+│       ├── layouts
+│       ├── overviews
+│       ├── pwa
+│       ├── sport
+│       └── sport_types
+├── bin
+│   ├── brakeman
+│   ├── bundle
+│   ├── dev
+│   ├── docker-entrypoint
+│   ├── importmap
+│   ├── jobs
+│   ├── kamal
+│   ├── rails
+│   ├── rake
+│   ├── rubocop
+│   ├── setup
+│   └── thrust
+├── config
+│   ├── application.rb
+│   ├── boot.rb
+│   ├── cable.yml
+│   ├── cache.yml
+│   ├── credentials.yml.enc
+│   ├── database.yml
+│   ├── deploy.yml
+│   ├── environment.rb
+│   ├── environments
+│   │   ├── development.rb
+│   │   ├── production.rb
+│   │   └── test.rb
+│   ├── importmap.rb
+│   ├── initializers
+│   │   ├── assets.rb
+│   │   ├── content_security_policy.rb
+│   │   ├── filter_parameter_logging.rb
+│   │   └── inflections.rb
+│   ├── locales
+│   │   └── en.yml
+│   ├── master.key
+│   ├── puma.rb
+│   ├── queue.yml
+│   ├── recurring.yml
+│   ├── routes.rb
+│   └── storage.yml
+├── config.ru
+├── db
+│   ├── cable_schema.rb
+│   ├── cache_schema.rb
+│   ├── migrate
+│   │   ├── 20250613094803_create_sporty_types.rb
+│   │   ├── 20250613111249_create_daily_activities.rb
+│   │   ├── 20250613150034_drop_tables.rb
+│   │   ├── 20250614122903_add_default_duration_to_sport_types.rb
+│   │   ├── 20250614202141_add_date_to_daily_activities.rb
+│   │   └── 20250615121821_add_distance_calories_details_to_daily_activities.rb
+│   ├── queue_schema.rb
+│   ├── schema.rb
+│   └── seeds.rb
+├── lib
+│   └── tasks
+├── log
+│   ├── development.log
+│   └── test.log
+├── public
+│   ├── 400.html
+│   ├── 404.html
+│   ├── 406-unsupported-browser.html
+│   ├── 422.html
+│   ├── 500.html
+│   ├── icon.png
+│   ├── icon.svg
+│   └── robots.txt
+├── script
+├── storage
+│   ├── development.sqlite3
+│   ├── development.sqlite3-shm
+│   ├── development.sqlite3-wal
+│   └── test.sqlite3
+├── structure.txt
+├── test
+│   ├── application_system_test_case.rb
+│   ├── controllers
+│   │   ├── daily_activities_controller_test.rb
+│   │   ├── day_statistic_controller_test.rb
+│   │   ├── overviews_controller_test.rb
+│   │   └── sport_controller_test.rb
+│   ├── fixtures
+│   │   ├── daily_activities.yml
+│   │   ├── files
+│   │   └── sport_types.yml
+│   ├── helpers
+│   ├── integration
+│   ├── mailers
+│   ├── models
+│   │   ├── daily_activity_test.rb
+│   │   └── sport_type_test.rb
+│   ├── system
+│   └── test_helper.rb
+├── tmp
+│   ├── cache
+│   │   └── bootsnap
+│   ├── pids
+│   │   └── server.pid
+│   ├── restart.txt
+│   ├── sockets
+│   └── storage
+└── vendor
+    └── javascript
+
+53 directories, 96 files

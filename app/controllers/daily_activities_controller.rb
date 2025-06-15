@@ -46,9 +46,14 @@ class DailyActivitiesController < ApplicationController
     redirect_to daily_activities_path
   end
 
+  def calendar
+    @activities = DailyActivity.all
+    @activities = DailyActivity.includes(:sport_type)
+  end
+
   private
   def daily_activity_params
-    params.expect(daily_activity: [ :set, :duration, :sport_type_id ])
+    params.expect(daily_activity: [ :sport_type_id, :duration, :set, :distance, :calories, :details ])
   end
 
   def set_daily_activity

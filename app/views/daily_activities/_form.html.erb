@@ -1,19 +1,65 @@
-<%= form_with model: @daily_activity, html:{data: {controller:"daily-activity-form"}} do |form| %>
-  <div class="mb-3">
-    <div>
-        <%= form.label :sport_type_id, "Sport", class:"form-label" %>
-        <%= form.collection_select :sport_type_id, @sport_types, :id, :name, {prompt: "Select a sport"}, data: { action: "change->daily-activity-form#update" } %>
-        <%= button_tag 'update', formmethod: "get", formaction: new_daily_activity_path, data:{daily_activity_form_target: "button"}, hidden: true %>
-    </div>
-   
-    <%= form.label :Duration,class:"form-label" %>
-    <%= form.number_field :duration, class: "form-control" %>
+<div class="container my-5">
+  <div class="bg-white p-4 p-md-5 rounded-4 shadow" style="max-width: 800px; margin: auto;">
+    <h3 class="mb-4">Daily Activity Details</h3>
 
-    <%= form.label :Set, class:"form-label" %>
-    <%= form.number_field :set, class: "form-control" %>
+    <%= form_with model: @daily_activity, html: { data: { controller: "daily-activity-form" } } do |form| %>
+      <div class="row g-3">
+        <!-- Sport Select -->
+        <div class="col-md-6">
+          <%= form.label :sport_type_id, "Sport", class: "form-label" %>
+          <%= form.collection_select :sport_type_id, @sport_types, :id, :name,
+              { prompt: "Select a sport" },
+              { class: "form-select", data: { action: "change->daily-activity-form#update" } } %>
+          <%= button_tag 'Update',
+              formmethod: "get",
+              formaction: new_daily_activity_path,
+              data: { daily_activity_form_target: "button" },
+              hidden: true %>
+        </div>
 
-  <div>
-    <%= form.submit class: "btn btn-info" %>
+        <!-- Duration -->
+        <div class="col-md-6">
+          <%= form.label :duration, "Duration (min)", class: "form-label" %>
+          <%= form.number_field :duration, class: "form-control", min: 0 %>
+        </div>
+
+        <!-- Sets -->
+        <div class="col-md-6">
+          <%= form.label :set, "Set", class: "form-label" %>
+          <%= form.number_field :set, class: "form-control", min: 0 %>
+        </div>
+
+        <!-- Distance -->
+        <div class="col-md-6">
+          <%= form.label :distance, "Distance (km)", class: "form-label" %>
+          <%= form.number_field :distance, step: 0.1, class: "form-control" %>
+        </div>
+
+        <!-- Calories -->
+        <div class="col-md-6">
+          <%= form.label :calories, "Calories Burned", class: "form-label" %>
+          <%= form.number_field :calories, class: "form-control", min: 0 %>
+        </div>
+
+        <!-- Details -->
+        <div class="col-12">
+          <%= form.label :details, "Details or Notes", class: "form-label" %>
+          <%= form.text_area :details, rows: 3, class: "form-control" %>
+        </div>
+
+        <!-- Date -->
+  <div class="col-md-6">
+  <%= form.label :date, "Date", class: "form-label" %>
+  <%= form.date_field :date, class: "form-control" %>
+</div>
+
+
+        <!-- Submit + Cancel -->
+        <div class="col-12 d-flex justify-content-between align-items-center mt-3">
+          <%= form.submit "Save", class: "btn btn-primary px-4" %>
+          <%= link_to "Cancel", daily_activities_path, class: "btn btn-outline-secondary" %>
+        </div>
+      </div>
+    <% end %>
   </div>
-  </div>
-<% end %>
+</div>

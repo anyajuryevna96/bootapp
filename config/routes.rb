@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "calendars/show"
   get "day_statistic/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -15,4 +16,5 @@ Rails.application.routes.draw do
   resources :daily_activities
   resources :sport_types
   resource :overview, only: [ :show ]
+  resource :calendar, only: [ :show ]
 end

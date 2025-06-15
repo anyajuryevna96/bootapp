@@ -10,13 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_14_122903) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_15_121821) do
   create_table "daily_activities", force: :cascade do |t|
     t.integer "sport_type_id", null: false
     t.integer "duration", default: 0
     t.integer "set", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "date"
+    t.integer "distance"
+    t.integer "calories"
+    t.text "details"
     t.index ["sport_type_id"], name: "index_daily_activities_on_sport_type_id"
   end
 
