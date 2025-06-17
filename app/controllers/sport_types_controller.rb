@@ -15,7 +15,7 @@ class SportTypesController < ApplicationController
   def create
     @sport_type = SportType.new(sport_type_params)
     if @sport_type.save
-      redirect_to @sport_type
+      redirect_to sport_types_path, notice: "Sport type was successfully created."
     else
       render :new, status: :unprocessable_entity
     end

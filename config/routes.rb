@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get "calendars/show"
   get "day_statistic/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

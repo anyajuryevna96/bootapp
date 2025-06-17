@@ -1,7 +1,7 @@
 <div class="container py-4">
   <!-- Header -->
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="mb-0">Overview </h4>
+    <h4 class="mb-0">Overview</h4>
     <div class="dropdown">
       <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
         <i class="fas fa-calendar-alt me-2"></i>This Month
@@ -15,33 +15,159 @@
     </div>
   </div>
 
-  <!-- Stat Card with Table -->
   <div class="row g-4">
-    <div class="col-12 col-md-6 col-lg-3">
-      <div class="card stat-card border-0 shadow-sm">
+
+    <!-- Activities by Type -->
+    <div class="col-12 col-md-6 col-lg-6">
+      <div class="card stat-card border-0 shadow-sm h-100">
         <div class="card-body">
           <h5 class="card-title mb-3">Activities by Type</h5>
           <table class="table table-sm">
             <thead>
               <tr>
-                <th scope="col">Type</th>
-                <th scope="col">Duration</th>
-                <th scope="col">Sets</th>
+                <th>Type</th>
+                <th>Duration (min)</th>
+                <th>Sets</th>
+                <th>Distance (km)</th>
+                <th>Avg Pace (min/km)</th>
+                <th>Avg Speed (km/h)</th>
+                <th>Calories (kcal)</th>
+                <th>Sessions</th>
               </tr>
             </thead>
             <tbody>
-              <% grouped = @daily_activities.group_by { |daily_activity| daily_activity.sport_type.name } %>
+              <% grouped = @daily_activities.group_by { |da| da.sport_type.name } %>
               <% grouped.each do |type_name, activities| %>
-                <tr>
-                  <td><%= type_name %></td>
-                  <td><%= activities.sum(&:duration) %></td>
-                  <td><%= activities.sum(&:set) %></td>
-                </tr>
+                <% valid_paces = activities.map(&:pace).compact %>
+                <% valid_speeds = activities.map(&:speed).compact %>
+             <tr>
+  <td><%= type_name %></td>
+  <td><%= activities.sum { |a| a.duration.to_i } %></td>
+  <td><%= activities.sum { |a| a.set.to_i } %></td>
+  <td><%= activities.sum { |a| a.distance.to_f } %></td>
+  <td><%= valid_paces.any? ? (valid_paces.sum / valid_paces.size).round(2) : "-" %></td>
+  <td><%= valid_speeds.any? ? (valid_speeds.sum / valid_speeds.size).round(2) : "-" %></td>
+  <td><%= activities.sum { |a| a.calories.to_i } %></td>
+  <td><%= activities.size %></td>
+</tr>
+
               <% end %>
+            <tr class="table-secondary fw-bold">
+  <td>Total</td>
+  <td><%= @daily_activities.sum { |a| a.duration.to_i } %></td>
+  <td><%= @daily_activities.sum { |a| a.set.to_i } %></td>
+  <td><%= @daily_activities.sum { |a| a.distance.to_f } %></td>
+  <% total_paces = @daily_activities.map(&:pace).compact %>
+  <% total_speeds = @daily_activities.map(&:speed).compact %>
+  <td><%= total_paces.any? ? (total_paces.sum / total_paces.size).round(2) : "-" %></td>
+  <td><%= total_speeds.any? ? (total_speeds.sum / total_speeds.size).round(2) : "-" %></td>
+  <td><%= @daily_activities.sum { |a| a.calories.to_i } %></td>
+  <td><%= @daily_activities.size %></td>
+</tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
+
+    <!-- Total Distance Over Time (Line Chart) -->
+    <div class="col-12 col-md-6 col-lg-6">
+      <div class="card stat-card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Total Distance Over Months</h5>
+          <canvas id="distanceChart" height="250"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Average Pace & Speed -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card stat-card border-0 shadow-sm h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-3">Average Pace & Speed</h5>
+          <% all_paces = @daily_activities.map(&:pace).compact %>
+          <% all_speeds = @daily_activities.map(&:speed).compact %>
+          <p class="display-6">
+            Pace: <strong><%= all_paces.any? ? (all_paces.sum / all_paces.size).round(2) : "-" %> min/km</strong>
+          </p>
+          <p class="display-6">
+            Speed: <strong><%= all_speeds.any? ? (all_speeds.sum / all_speeds.size).round(2) : "-" %> km/h</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calories Burned Summary -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card stat-card border-0 shadow-sm h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-3">Calories Burned</h5>
+         <p class="display-5"><%= @daily_activities.sum { |a| a.calories.to_i } %> kcal</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Most Active Sport Types -->
+    <div class="col-12 col-md-12 col-lg-4">
+      <div class="card stat-card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Top 3 Active Sports</h5>
+          <% top_sports = @daily_activities.group_by { |a| a.sport_type.name }
+                          .transform_values(&:count)
+                          .sort_by { |_, count| -count }
+                          .first(3) %>
+          <ul class="list-group list-group-flush">
+            <% top_sports.each do |sport, count| %>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <%= sport %>
+                <span class="badge bg-primary rounded-pill"><%= count %> sessions</span>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById('distanceChart').getContext('2d');
+
+    const monthlyData = <%= raw @daily_activities
+  .select { |a| a.date.present? }
+  .group_by { |a| a.date.beginning_of_month }
+  .transform_values { |acts| acts.sum(&:distance) }
+  .sort.to_h.to_json %>;
+
+    const labels = Object.keys(monthlyData).map(d => new Date(d).toLocaleDateString(undefined, { year: 'numeric', month: 'short' }));
+    const distances = Object.values(monthlyData);
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Distance (km)',
+          data: distances,
+          borderColor: 'rgb(54, 162, 235)',
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  });
+</script>

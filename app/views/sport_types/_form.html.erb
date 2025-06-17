@@ -1,10 +1,22 @@
-<%= form_with model: @sport_type do |form| %>
-  <div class="mb-3"> 
-    <%= form.label :Name, class:"form-label" %>
-    <%= form.text_field :name, class: "form-control"%>
-    <%= form.text_field :default_duration, class: "form-control"%>
- </div>
-  <div>
-    <%= form.submit class: "btn btn-info" %>
+<div class="container my-5">
+  <div class="bg-white p-4 p-md-5 rounded-4 shadow" style="max-width: 600px; margin: auto;">
+    <h3 class="mb-4">Add / Edit Sport Type</h3>
+
+    <%= form_with model: @sport_type do |form| %>
+      <div class="mb-3">
+        <%= form.label :name, "Sport Name", class: "form-label" %>
+        <%= form.text_field :name, class: "form-control", placeholder: "e.g. Running" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :default_duration, "Default Duration (minutes)", class: "form-label" %>
+        <%= form.number_field :default_duration, class: "form-control", placeholder: "e.g. 30", min: 0 %>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <%= form.submit "Save", class: "btn btn-primary px-4" %>
+        <%= link_to "Cancel", sport_types_path, class: "btn btn-outline-secondary" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

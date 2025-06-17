@@ -1,37 +1,70 @@
-<div class="container my-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="m-0">Training Diary</h1>
-    <%= link_to "New Activity", new_daily_activity_path, class: "btn btn-primary" %>
-  </div>
+<h1 class="mb-4">Daily Activities</h1>
 
-  <% if @daily_activities.any? %>
-    <div class="row">
-      <% @daily_activities.each do |activity| %>
-        <div class="col-md-6 mb-4">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title">
-                Activity ID: <%= activity.id %>
-              </h5>
-              <p class="card-text">
-                <span class="me-3">🏃 <strong>Date:</strong> <%= activity.date %></span>
-                <span class="me-3">🏃 <strong>Sport:</strong> <%= activity.sport_type.name %></span>
-                <span class="me-3">⏱️ <strong>Duration:</strong> <%= activity.duration %> min</span>
-                <span>🎯 <strong>Set:</strong> <%= activity.set %></span>
-                <span class="me-3">⏱️ <strong>Distance:</strong> <%= activity.distance %> min</span>
-                <span class="me-3">⏱️ <strong>Calories:</strong> <%= activity.calories %> min</span>
-                <span class="me-3">⏱️ <strong>Description:</strong> <%= activity.details %> min</span>
-              </p>
-              <div class="d-flex gap-2">
-                <%= link_to "Edit", edit_daily_activity_path(activity), class: "btn btn-sm btn-outline-primary" %>
-                <%= button_to "Delete", activity, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" %>
-              </div>
+<div class="mb-3 text-end">
+  <%= link_to "➕ Add New Activity", new_daily_activity_path, class: "btn btn-primary" %>
+</div>
+
+<div class="container">
+  <% @daily_activities.each_with_index do |activity, index| %>
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <!-- 🗓️ Activity Date -->
+        <h5 class="card-title text-primary">
+          <%= activity.date.strftime("%B %d, %Y") if activity.date %>
+        </h5>
+
+        <div class="row">
+          <div class="col-md-3">
+            <strong>Sport:</strong> <%= activity.sport_type&.name %>
+          </div>
+          <div class="col-md-3">
+            <strong>Duration:</strong> <%= activity.duration %> min
+          </div>
+          <% if activity.set.present? && activity.set > 1 %>
+            <div class="col-md-2">
+              <strong>Sets:</strong> <%= activity.set %>
+            </div>
+          <% end %>
+          <% if activity.distance.present? %>
+            <div class="col-md-2">
+              <strong>Distance:</strong> <%= activity.distance %> km
+            </div>
+          <% end %>
+        </div>
+
+        <!-- 🔽 Toggle for extra details -->
+        <% if activity.calories.present? || activity.details.present? || (activity.set.present? && activity.set <= 1) || (activity.pace.to_f > 0 && activity.speed.to_f > 0) %>
+          <div class="mt-3">
+            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#details-<%= index %>">
+              View Details
+            </button>
+          </div>
+
+          <div class="collapse mt-2" id="details-<%= index %>">
+            <div class="bg-light p-3 rounded">
+              <% if activity.set.present? && activity.set <= 1 %>
+                <p><strong>Sets:</strong> <%= activity.set %></p>
+              <% end %>
+              <% if activity.calories.present? %>
+                <p><strong>Calories:</strong> <%= activity.calories %> kcal</p>
+              <% end %>
+              <% if activity.details.present? %>
+                <p><strong>Notes:</strong> <%= activity.details %></p>
+              <% end %>
+              <% if activity.pace.to_f > 0 && activity.speed.to_f > 0 %>
+                <p><strong>Pace:</strong> <%= activity.pace %> min/km</p>
+                <p><strong>Speed:</strong> <%= activity.speed %> km/h</p>
+              <% end %>
             </div>
           </div>
+        <% end %>
+
+        <!-- ✏️ Action Buttons -->
+        <div class="mt-3 d-flex justify-content-end gap-2">
+          <%= link_to "Edit", edit_daily_activity_path(activity), class: "btn btn-outline-primary btn-sm" %>
+          <%= button_to "Delete", activity, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-outline-danger btn-sm" %>
         </div>
-      <% end %>
+      </div>
     </div>
-  <% else %>
-    <p class="text-muted">No activities recorded yet.</p>
   <% end %>
 </div>
