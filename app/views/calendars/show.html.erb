@@ -16,17 +16,13 @@
     const calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: "dayGridMonth",
       height: "auto",
-      events: [
-        <% @activities.each do |activity| %>
-          <% if activity.date.present? %>
-            {
-              title: "<%= j(activity.sport_type.name) %> - <%= activity.duration %> min",
-              start: "<%= activity.date.strftime('%Y-%m-%d') %>",
-              url: "<%= daily_activity_path(activity) %>"
-            },
-          <% end %>
-        <% end %>
-      ]
+      events: <%= raw @activities.map { |activity|
+        {
+          title: "#{activity.sport_type.name} - #{activity.duration} min",
+          start: activity.date.strftime('%Y-%m-%d'),
+          url: daily_activity_path(activity)
+        }
+      }.to_json %>
     });
 
     calendar.render();

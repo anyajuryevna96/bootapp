@@ -55,7 +55,7 @@ class DailyActivitiesController < ApplicationController
   end
 
   def daily_activity_params
-    params.require(:daily_activity).permit(:sport_type_id, :duration, :set, :distance, :calories, :details)
+    params.require(:daily_activity).permit(:sport_type_id, :duration, :set, :distance, :calories, :details, :date)
   end
 
   def load_sport_types
